@@ -48,8 +48,8 @@
     /*
      JSON:
      {
-       mensaje: "Atrapan al chapo !!!!",
-       autor: "EL DEBATE"
+       mensaje: "",
+       autor: ""
      }
      */
     // Nuestro objeto publicacion tiene dos atributos, mensaje y autor
@@ -183,23 +183,5 @@
         dptvc.publicacion = [publicaciones objectAtIndex:index.row];
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @end
