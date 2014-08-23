@@ -30,6 +30,7 @@
     NSLog(@"%@", self.publicacion);
     // muestro el contenido del objeto publicación del timeline
     // en las propieades label y textview
+    
     self.lblAutor.text = [self.publicacion objectForKey:@"autor"];
     self.textMensaje.text = [self.publicacion objectForKey:@"mensaje"];
     

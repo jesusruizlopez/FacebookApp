@@ -37,7 +37,7 @@
     // Aquí se crea la instancia de la variable
     // Xcode pone de otro color las variables globales de la clase
     publicaciones = [[NSMutableArray alloc] init];
-    
+
     /*
      Lo mismo que arriba
     NSMutableArray *publications;
@@ -52,6 +52,8 @@
        autor: ""
      }
      */
+    
+    /*
     // Nuestro objeto publicacion tiene dos atributos, mensaje y autor
     NSMutableDictionary *publicacion = [[NSMutableDictionary alloc] init];
     [publicacion setValue:@"Curso de Programación iOS" forKey:@"mensaje"];
@@ -73,11 +75,22 @@
     [publicaciones addObject:publicacion]; // agregamos la tercera publicación al listado de publicaciones
     
     NSLog(@"%@", publicaciones);
+     */
 }
 
-// Antes de que se muestre la pantalla, después de que se cargaron las configuraciones
+// Antes de que se muestre la pantalla, después de que se cargaron las configuraciones (viewDidLoad)
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    if ([ud objectForKey:@"publicaciones"] != nil) {
+        publicaciones = [ud objectForKey:@"publicaciones"];
+        
+        self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", [publicaciones count]];
+        
+        // cuando tenemos información actualizada y queremos notificarle a nuestra vista por medio del componente UITableView, hay que usar el siguiente método
+        // este método recarga los datos usando cellForRowAtIndexPath (actualizando con los nuevos valores)
+        [self.tableView reloadData];
+    }
 }
 
 // Después de que se mostró la pantalla y se cargaron las configuraciones
@@ -169,10 +182,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    // obtenemos que elemento de la tabla está seleccionado y sacamos el indexPath (section, row)
+    NSIndexPath *index = [self.tableView indexPathForSelectedRow];
+    
     // identifico que segue está haciendo uso del método, ya que en una pantalla puedo tener muchos segue para diferente navegación
     if ([[segue identifier] isEqualToString:@"detallePublicacionSegue"]) {
-        // obtenemos que elemento de la tabla está seleccionado y sacamos el indexPath (section, row)
-        NSIndexPath *index = [self.tableView indexPathForSelectedRow];
 
         // el destino del segue es un NavigationController
         UINavigationController *navigation = [segue destinationViewController];
@@ -182,6 +196,27 @@
         // obtenemos la publicación del arreglo con las publicaciones
         dptvc.publicacion = [publicaciones objectAtIndex:index.row];
     }
+    else if ([[segue identifier] isEqualToString:@"detallePublicacionPushSegue"]) {
+        DetallePublicacionTableViewController *dptvc = [segue destinationViewController];
+        dptvc.publicacion = [publicaciones objectAtIndex:index.row];
+    }
 }
 
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

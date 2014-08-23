@@ -23,6 +23,7 @@
 		94A27E62199FB20B0099674B /* FacebookAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A27E61199FB20B0099674B /* FacebookAppTests.m */; };
 		94A27E6D199FC0960099674B /* TimelineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A27E6C199FC0960099674B /* TimelineTableViewController.m */; };
 		94A27E70199FE4430099674B /* DetallePublicacionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A27E6F199FE4430099674B /* DetallePublicacionTableViewController.m */; };
+		94D55F0119A90903009699EA /* PublicacionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D55F0019A90903009699EA /* PublicacionTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,8 @@
 		94A27E6C199FC0960099674B /* TimelineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineTableViewController.m; sourceTree = "<group>"; };
 		94A27E6E199FE4430099674B /* DetallePublicacionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetallePublicacionTableViewController.h; sourceTree = "<group>"; };
 		94A27E6F199FE4430099674B /* DetallePublicacionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetallePublicacionTableViewController.m; sourceTree = "<group>"; };
+		94D55EFF19A90903009699EA /* PublicacionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicacionTableViewController.h; sourceTree = "<group>"; };
+		94D55F0019A90903009699EA /* PublicacionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicacionTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,8 @@
 				94A27E6C199FC0960099674B /* TimelineTableViewController.m */,
 				94A27E6E199FE4430099674B /* DetallePublicacionTableViewController.h */,
 				94A27E6F199FE4430099674B /* DetallePublicacionTableViewController.m */,
+				94D55EFF19A90903009699EA /* PublicacionTableViewController.h */,
+				94D55F0019A90903009699EA /* PublicacionTableViewController.m */,
 			);
 			path = FacebookApp;
 			sourceTree = "<group>";
@@ -262,6 +267,7 @@
 				94A27E70199FE4430099674B /* DetallePublicacionTableViewController.m in Sources */,
 				94A27E6D199FC0960099674B /* TimelineTableViewController.m in Sources */,
 				94A27E40199FB20A0099674B /* main.m in Sources */,
+				94D55F0119A90903009699EA /* PublicacionTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,6 +484,7 @@
 				94A27E67199FB20B0099674B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		94A27E68199FB20B0099674B /* Build configuration list for PBXNativeTarget "FacebookAppTests" */ = {
 			isa = XCConfigurationList;
@@ -486,6 +493,7 @@
 				94A27E6A199FB20B0099674B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

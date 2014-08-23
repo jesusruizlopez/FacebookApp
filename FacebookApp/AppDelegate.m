@@ -13,6 +13,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    if ([ud objectForKey:@"publicaciones"] == nil) {
+        [ud setValue:nil forKeyPath:@"publicaciones"];
+        [ud synchronize];
+    }
     return YES;
 }
 							
