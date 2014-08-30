@@ -16,7 +16,9 @@
 
 @end
 
-@implementation PublicacionTableViewController
+@implementation PublicacionTableViewController {
+    UITapGestureRecognizer *tap;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -31,15 +33,19 @@
 {
     [super viewDidLoad];
     
-    // Creamos un gesture, un componente 100% de interacción
-    // Cuando se crea un tap hay que agregarlo siempre a la vista y expecificar la acción (método)
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cerrarTeclado)];
-    [self.view addGestureRecognizer:tap];
+    // Le quitamos la leyenda al botón Back
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     self.caracteres.text = [NSString stringWithFormat:@"%d", CARACTERES];
     
     // El componente txtEstado delega de la clase PublicacionTableViewController, por lo cual puede usar comportamientos, métodos y propiedades que disponga esta clase
     self.txtEstado.delegate = self;
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - TextFieldDelegate
@@ -71,6 +77,20 @@
         return YES;
 }
 
+// Optimización gesture, se crea cuando empieza la edición del textfield, se destruye cuando se acaba la edición, para evitar conflictos con otros comportamientos (click a una celda, etc.)
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cerrarTeclado)];
+    [self.view addGestureRecognizer:tap];
+    return YES;
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    [self.view removeGestureRecognizer:tap];
+    tap = nil;
+    return YES;
+}
+
 #pragma mark - IBAction
 
 - (IBAction)publicar:(id)sender {
@@ -98,12 +118,6 @@
     self.caracteres.text = [NSString stringWithFormat:@"%d", CARACTERES];
     self.caracteres.textColor = [[UIColor alloc] initWithRed:69.0/255 green:97.0/255 blue:157.0/255 alpha:1];
     [self.txtEstado resignFirstResponder];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source

@@ -17,7 +17,7 @@
 @end
 
 @implementation TimelineTableViewController {
-    // Esta variable puede ser accedida en toda la clase
+    // Esta variable puede ser accedida en toda la clase (global)
     NSMutableArray *publicaciones;
 }
 
