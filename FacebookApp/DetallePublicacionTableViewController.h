@@ -21,5 +21,6 @@
 // regresa una acción a la vista
 // recibe el elemento que lo acciona
 - (IBAction)cerrar:(UIBarButtonItem *)sender;
+- (IBAction)editarPublicacion:(id)sender;
 
 @end

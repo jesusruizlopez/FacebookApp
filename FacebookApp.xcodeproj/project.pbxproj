@@ -41,6 +41,9 @@
 		94A27E62199FB20B0099674B /* FacebookAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A27E61199FB20B0099674B /* FacebookAppTests.m */; };
 		94A27E6D199FC0960099674B /* TimelineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A27E6C199FC0960099674B /* TimelineTableViewController.m */; };
 		94A27E70199FE4430099674B /* DetallePublicacionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94A27E6F199FE4430099674B /* DetallePublicacionTableViewController.m */; };
+		94D4658419BB631900F85D86 /* FacebookApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 94D4658219BB631900F85D86 /* FacebookApp.xcdatamodeld */; };
+		94D4658819BB64F500F85D86 /* Publicacion.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D4658719BB64F500F85D86 /* Publicacion.m */; };
+		94D4658B19BB670D00F85D86 /* ObjectDataMaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D4658A19BB670D00F85D86 /* ObjectDataMaper.m */; };
 		94D55F0119A90903009699EA /* PublicacionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 94D55F0019A90903009699EA /* PublicacionTableViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +101,11 @@
 		94A27E6C199FC0960099674B /* TimelineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimelineTableViewController.m; sourceTree = "<group>"; };
 		94A27E6E199FE4430099674B /* DetallePublicacionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetallePublicacionTableViewController.h; sourceTree = "<group>"; };
 		94A27E6F199FE4430099674B /* DetallePublicacionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetallePublicacionTableViewController.m; sourceTree = "<group>"; };
+		94D4658319BB631900F85D86 /* FacebookApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FacebookApp.xcdatamodel; sourceTree = "<group>"; };
+		94D4658619BB64F500F85D86 /* Publicacion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Publicacion.h; sourceTree = "<group>"; };
+		94D4658719BB64F500F85D86 /* Publicacion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Publicacion.m; sourceTree = "<group>"; };
+		94D4658919BB670D00F85D86 /* ObjectDataMaper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectDataMaper.h; sourceTree = "<group>"; };
+		94D4658A19BB670D00F85D86 /* ObjectDataMaper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjectDataMaper.m; sourceTree = "<group>"; };
 		94D55EFF19A90903009699EA /* PublicacionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicacionTableViewController.h; sourceTree = "<group>"; };
 		94D55F0019A90903009699EA /* PublicacionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicacionTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -188,6 +196,7 @@
 		94A27E39199FB20A0099674B /* FacebookApp */ = {
 			isa = PBXGroup;
 			children = (
+				94D4658519BB64A200F85D86 /* Models */,
 				94A27E42199FB20A0099674B /* AppDelegate.h */,
 				94A27E43199FB20A0099674B /* AppDelegate.m */,
 				94A27E45199FB20B0099674B /* Main_iPhone.storyboard */,
@@ -206,6 +215,7 @@
 				94757A1F19B25424002F9590 /* AmigoCell.m */,
 				94757A2119B25565002F9590 /* AmigosViewController.h */,
 				94757A2219B25565002F9590 /* AmigosViewController.m */,
+				94D4658219BB631900F85D86 /* FacebookApp.xcdatamodeld */,
 			);
 			path = FacebookApp;
 			sourceTree = "<group>";
@@ -237,6 +247,17 @@
 				94A27E5E199FB20B0099674B /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		94D4658519BB64A200F85D86 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				94D4658619BB64F500F85D86 /* Publicacion.h */,
+				94D4658719BB64F500F85D86 /* Publicacion.m */,
+				94D4658919BB670D00F85D86 /* ObjectDataMaper.h */,
+				94D4658A19BB670D00F85D86 /* ObjectDataMaper.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,9 +371,12 @@
 				94A27E70199FE4430099674B /* DetallePublicacionTableViewController.m in Sources */,
 				94A27E6D199FC0960099674B /* TimelineTableViewController.m in Sources */,
 				94A27E40199FB20A0099674B /* main.m in Sources */,
+				94D4658419BB631900F85D86 /* FacebookApp.xcdatamodeld in Sources */,
 				9468F00E19B233C800BC37A1 /* UbicacionViewController.m in Sources */,
 				94757A2019B25424002F9590 /* AmigoCell.m in Sources */,
 				94D55F0119A90903009699EA /* PublicacionTableViewController.m in Sources */,
+				94D4658819BB64F500F85D86 /* Publicacion.m in Sources */,
+				94D4658B19BB670D00F85D86 /* ObjectDataMaper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -591,6 +615,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		94D4658219BB631900F85D86 /* FacebookApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				94D4658319BB631900F85D86 /* FacebookApp.xcdatamodel */,
+			);
+			currentVersion = 94D4658319BB631900F85D86 /* FacebookApp.xcdatamodel */;
+			path = FacebookApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 94A27E28199FB20A0099674B /* Project object */;
 }

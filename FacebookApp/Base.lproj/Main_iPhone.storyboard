@@ -54,6 +54,12 @@
                                 <action selector="cerrar:" destination="drt-f0-cez" id="ZhK-R5-cg0"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Editar" style="done" id="V0O-S1-iIK">
+                            <color key="tintColor" red="0.270588249" green="0.38039216399999998" blue="0.61568629740000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="editarPublicacion:" destination="drt-f0-cez" id="Wqx-nD-emC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="lblAutor" destination="rTt-VF-pRS" id="Fuo-2u-UP5"/>

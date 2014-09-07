@@ -7,7 +7,7 @@
 //
 
 #import "TimelineTableViewController.h"
-
+#import "ObjectDataMaper.h"
 // Si se pone el .m hay error en compilación
 // y se van a llevar su primer dolor de cabeza buscando que es :(
 #import "DetallePublicacionTableViewController.h"
@@ -19,6 +19,7 @@
 @implementation TimelineTableViewController {
     // Esta variable puede ser accedida en toda la clase (global)
     NSMutableArray *publicaciones;
+    ObjectDataMaper *odm;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -34,6 +35,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    odm = [[ObjectDataMaper alloc] init];
+    
     // Aquí se crea la instancia de la variable
     // Xcode pone de otro color las variables globales de la clase
     publicaciones = [[NSMutableArray alloc] init];
@@ -79,6 +83,7 @@
 }
 
 // Antes de que se muestre la pantalla, después de que se cargaron las configuraciones (viewDidLoad)
+/*
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
@@ -92,6 +97,15 @@
         [self.tableView reloadData];
     }
 }
+ */
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    publicaciones = [odm obtenerPublicaciones];
+    self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", [publicaciones count]];
+    [self.tableView reloadData];
+}
+
 
 // Después de que se mostró la pantalla y se cargaron las configuraciones
 - (void)viewDidAppear:(BOOL)animated {
@@ -105,6 +119,39 @@
 }
 
 #pragma mark - Table view data source
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        // obtenemos la publicación usando el número de celda que estamos eliminando
+        
+        // el error del eliminar, era porque estaba obteniendo mal el objeto de publicaciones, por alguna razón usaba [self.tableView indexPathForSelectedRow] en vez de simplemente usar el indexPath que recibo como parametro, otro error tonto, lo que hace el sueño y la desvelada
+        NSDictionary *pub = [publicaciones objectAtIndex:indexPath.row];
+
+        // ejecutamos eliminarPublicacion, si no se elimina de la base de datos, manda una alerta
+        if (![odm eliminarPublicacion:[pub objectForKey:@"id"]]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No se pudo eliminar la publicación" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        else {
+            
+            // si se elimina de la base de datos, removemos el objeto del arreglo publicaciones y visualmente de la tabla
+            [publicaciones removeObjectAtIndex:indexPath.row];
+            
+            // actualizamos el indicador visualmente, con el nuevo número de publicaciones
+            self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", [publicaciones count]];
+            
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            
+            [self.tableView reloadData];
+        }
+    }
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -139,6 +186,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 69;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"Eliminar";
 }
 /*
 // Override to support conditional editing of the table view.
@@ -203,20 +254,3 @@
 }
 
 @end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

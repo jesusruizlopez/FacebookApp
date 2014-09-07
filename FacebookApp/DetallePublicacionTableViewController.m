@@ -7,12 +7,16 @@
 //
 
 #import "DetallePublicacionTableViewController.h"
+#import "ObjectDataMaper.h"
 
 @interface DetallePublicacionTableViewController ()
 
 @end
 
-@implementation DetallePublicacionTableViewController
+@implementation DetallePublicacionTableViewController {
+    BOOL editando;
+    ObjectDataMaper *odm;
+}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -27,7 +31,7 @@
 {
     [super viewDidLoad];
     
-    NSLog(@"%@", self.publicacion);
+    odm = [[ObjectDataMaper alloc] init];
     // muestro el contenido del objeto publicación del timeline
     // en las propieades label y textview
     
@@ -39,6 +43,11 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    editando = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,6 +86,37 @@
 
 - (IBAction)cerrar:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)editarPublicacion:(id)sender {
+    if (editando) {
+        editando = NO;
+        self.navigationItem.rightBarButtonItem.title = @"Editar";
+        
+        // el error al editar, es que no estabamos actualizando la información y no se veía reflejado el cambio, error tonto
+        NSDictionary *pubActualizada = @{
+                                         @"id": [self.publicacion objectForKey:@"id"],
+                                         @"autor": [self.publicacion objectForKey:@"autor"],
+                                         @"mensaje": self.textMensaje.text,
+                                         @"latitud": [self.publicacion objectForKey:@"latitud"],
+                                         @"longitud": [self.publicacion objectForKey:@"longitud"]
+                                         };
+        
+        // método para actualizar
+        if (![odm editarPublicacion:pubActualizada]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Ocurrió un error al editar la publicación" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }
+    else {
+        editando = YES;
+        self.navigationItem.rightBarButtonItem.title = @"Guardar";
+    }
+    
+    [self.textMensaje setEditable:editando];
+    [self.textMensaje setSelectable:editando];
+    [self.textMensaje becomeFirstResponder];
+    self.textMensaje.selectedRange = NSMakeRange([self.textMensaje.text length], 0);
 }
 
 /*

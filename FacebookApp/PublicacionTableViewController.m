@@ -7,6 +7,7 @@
 //
 
 #import "PublicacionTableViewController.h"
+#import "ObjectDataMaper.h"
 
 // un macro es una buena práctica para crear constantes, aunque oficialmente no son las constantes en Objective-C
 // un macro puede contener cualquier cosa, una función, un objeto, cualquier valor
@@ -18,6 +19,7 @@
 
 @implementation PublicacionTableViewController {
     UITapGestureRecognizer *tap;
+    ObjectDataMaper *odm;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -32,6 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    odm = [[ObjectDataMaper alloc] init];
     
     // Le quitamos la leyenda al botón Back
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -94,6 +98,29 @@
 #pragma mark - IBAction
 
 - (IBAction)publicar:(id)sender {
+    NSDictionary *obj = @{
+                          @"autor": @"Jesús Ruiz",
+                          @"mensaje": self.txtEstado.text,
+                          @"latitud": @"24.806440",
+                          @"longitud": @"-107.384794"
+                         };
+    
+    // guardado en CoreData
+    
+    if (![odm guardarPublicacion:obj]) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"No se pudo guardar la publicación" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
+    // fin del guardado
+    
+    self.txtEstado.text = @"";
+    self.caracteres.text = [NSString stringWithFormat:@"%d", CARACTERES];
+    self.caracteres.textColor = [[UIColor alloc] initWithRed:69.0/255 green:97.0/255 blue:157.0/255 alpha:1];
+    [self.txtEstado resignFirstResponder];
+}
+
+- (IBAction)publicarDos:(id)sender {
     // UserDefault, podemos instaciar de esta forma o con alloc, init (forma tradicional) y funcionará igual
     // UserDefault nos permite gaurdar configuraciones, datos sensibles de la aplicación, estados, etc. Tiene un limite, para eso está la opción de CoreData (almacenar cantidades de datos más grandes)
     
