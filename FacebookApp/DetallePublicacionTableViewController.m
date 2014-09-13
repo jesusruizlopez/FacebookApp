@@ -8,6 +8,7 @@
 
 #import "DetallePublicacionTableViewController.h"
 #import "ObjectDataMaper.h"
+#import "WebServices.h"
 
 @interface DetallePublicacionTableViewController ()
 
@@ -35,8 +36,8 @@
     // muestro el contenido del objeto publicación del timeline
     // en las propieades label y textview
     
-    self.lblAutor.text = [self.publicacion objectForKey:@"autor"];
-    self.textMensaje.text = [self.publicacion objectForKey:@"mensaje"];
+    self.lblAutor.text = [[self.publicacion objectForKey:@"user"] objectForKey:@"username"];
+    self.textMensaje.text = [self.publicacion objectForKey:@"message"];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -48,6 +49,13 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     editando = NO;
+    
+    if ([[[self.publicacion objectForKey:@"user"] objectForKey:@"_id"] isEqualToString:@"54149abb96752e0000654bb9"]) {
+        [self.navigationItem.rightBarButtonItem setEnabled:YES];
+    }
+    else {
+        [self.navigationItem.rightBarButtonItem setEnabled:NO];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,6 +97,35 @@
 }
 
 - (IBAction)editarPublicacion:(id)sender {
+    
+    if (editando) {
+        editando = NO;
+        self.navigationItem.rightBarButtonItem.title = @"Editar";
+        
+        NSDictionary *pub = @{
+                              @"_id": [self.publicacion objectForKey:@"_id"],
+                              @"message": self.textMensaje.text
+                             };
+        
+        NSDictionary *response = [WebServices editPublication:pub];
+        
+        if (![[response objectForKey:@"success"] boolValue]) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[response objectForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+    }
+    else {
+        editando = YES;
+        self.navigationItem.rightBarButtonItem.title = @"Guardar";
+    }
+    
+    [self.textMensaje setEditable:editando];
+    [self.textMensaje setSelectable:editando];
+    [self.textMensaje becomeFirstResponder];
+    self.textMensaje.selectedRange = NSMakeRange([self.textMensaje.text length], 0);
+}
+
+- (IBAction)editarPublicacionCoreData:(id)sender {
     if (editando) {
         editando = NO;
         self.navigationItem.rightBarButtonItem.title = @"Editar";

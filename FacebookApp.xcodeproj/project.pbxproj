@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9429A13619C49C3B00698200 /* WebServices.m in Sources */ = {isa = PBXBuildFile; fileRef = 9429A13519C49C3B00698200 /* WebServices.m */; };
 		9468EFEF19B226E000BC37A1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9468EFEE19B226E000BC37A1 /* MapKit.framework */; };
 		9468EFF519B22C0800BC37A1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9468EFF419B22C0800BC37A1 /* AVFoundation.framework */; };
 		9468EFF719B22C1F00BC37A1 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9468EFF619B22C1F00BC37A1 /* CoreData.framework */; };
@@ -58,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9429A13419C49C3B00698200 /* WebServices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebServices.h; sourceTree = "<group>"; };
+		9429A13519C49C3B00698200 /* WebServices.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebServices.m; sourceTree = "<group>"; };
 		9468EFEE19B226E000BC37A1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		9468EFF419B22C0800BC37A1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9468EFF619B22C1F00BC37A1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -216,6 +219,8 @@
 				94757A2119B25565002F9590 /* AmigosViewController.h */,
 				94757A2219B25565002F9590 /* AmigosViewController.m */,
 				94D4658219BB631900F85D86 /* FacebookApp.xcdatamodeld */,
+				9429A13419C49C3B00698200 /* WebServices.h */,
+				9429A13519C49C3B00698200 /* WebServices.m */,
 			);
 			path = FacebookApp;
 			sourceTree = "<group>";
@@ -376,6 +381,7 @@
 				94757A2019B25424002F9590 /* AmigoCell.m in Sources */,
 				94D55F0119A90903009699EA /* PublicacionTableViewController.m in Sources */,
 				94D4658819BB64F500F85D86 /* Publicacion.m in Sources */,
+				9429A13619C49C3B00698200 /* WebServices.m in Sources */,
 				94D4658B19BB670D00F85D86 /* ObjectDataMaper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

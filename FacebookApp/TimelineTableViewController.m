@@ -8,6 +8,7 @@
 
 #import "TimelineTableViewController.h"
 #import "ObjectDataMaper.h"
+#import "WebServices.h"
 // Si se pone el .m hay error en compilación
 // y se van a llevar su primer dolor de cabeza buscando que es :(
 #import "DetallePublicacionTableViewController.h"
@@ -20,6 +21,8 @@
     // Esta variable puede ser accedida en toda la clase (global)
     NSMutableArray *publicaciones;
     ObjectDataMaper *odm;
+    
+    UIRefreshControl *refreshControl;
 }
 
 - (id)initWithStyle:(UITableViewStyle)style
@@ -35,6 +38,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(loadPublications) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
     
     odm = [[ObjectDataMaper alloc] init];
     
@@ -99,13 +106,29 @@
 }
  */
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    publicaciones = [odm obtenerPublicaciones];
-    self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", [publicaciones count]];
+- (void)loadPublications {
+    
+    NSDictionary *response = [WebServices getPublications];
+    
+    if ([[response objectForKey:@"success"] boolValue]) {
+        publicaciones = [response objectForKey:@"publications"];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:[response objectForKey:@"message"] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
+    [refreshControl endRefreshing];
     [self.tableView reloadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // publicaciones = [odm obtenerPublicaciones];
+    [self loadPublications];
+    self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d", [publicaciones count]];
+    [self.tableView reloadData];
+}
 
 // Después de que se mostró la pantalla y se cargaron las configuraciones
 - (void)viewDidAppear:(BOOL)animated {
@@ -121,7 +144,7 @@
 #pragma mark - Table view data source
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -178,8 +201,17 @@
     NSMutableDictionary *obj = [publicaciones objectAtIndex:indexPath.row];
     
     // mostramos los valores del objeto por medio de la llave que asignamos y mostramos en los label de la celda
-    cell.textLabel.text = [obj objectForKey:@"mensaje"];
-    cell.detailTextLabel.text = [obj objectForKey:@"autor"];
+    cell.textLabel.text = [obj objectForKey:@"message"];
+    
+    NSString *name;
+    if ([[obj objectForKey:@"edited"] boolValue]) {
+        name = [NSString stringWithFormat:@"%@ - Editado", [[obj objectForKey:@"user"] objectForKey:@"username"]];
+    }
+    else {
+        name = [[obj objectForKey:@"user"] objectForKey:@"username"];
+    }
+    
+    cell.detailTextLabel.text = name;
     
     return cell;
 }
